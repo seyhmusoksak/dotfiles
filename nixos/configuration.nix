@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
 
@@ -56,6 +53,7 @@
 
 
   # Load nvidia driver for Xorg and Wayland
+  
   services.xserver.videoDrivers = ["nvidia"];
   boot.blacklistedKernelModules=["nouveau"];
 
@@ -79,16 +77,7 @@
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
     };
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
     open = true;
-
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
         version = "555.58.02";
         sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
@@ -96,9 +85,8 @@
         openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
         settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
         persistencedSha256 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-  };
-    # Enable the Nvidia settings menu,
-	# accessible via `nvidia-settings`.
+    };
+  # Enable the Nvidia settings menu,
     nvidiaSettings = true;
   };
 
@@ -193,12 +181,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "24.05";
 
 }
